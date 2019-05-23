@@ -15,6 +15,7 @@ namespace OOPSnamkes
 
         Game game = new Game();
         Bitmap BoardBackground;
+        Bitmap BoardBackgroundSized;
 
 
 
@@ -67,7 +68,8 @@ namespace OOPSnamkes
         {
             BoardDisplay.Height = this.ClientRectangle.Height;
             BoardDisplay.Width = (int)((this.ClientRectangle.Width) * (double)9 / (double)12);
-            BoardDisplay.Image = DrawBoard(BoardDisplay.Width, BoardDisplay.Height);
+            BoardBackgroundSized = DrawBoard(BoardDisplay.Width, BoardDisplay.Height);
+            BoardDisplay.Image = BoardBackgroundSized;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -83,7 +85,10 @@ namespace OOPSnamkes
             {
                 if(0 < i.Occupier.Count)
                 {
-                    //do stuff to work out how many players are there and then display their counters in the correct square.
+                    if(1 == i.Occupier.Count)
+                    {
+                        
+                    }
                 }
             }
         }
