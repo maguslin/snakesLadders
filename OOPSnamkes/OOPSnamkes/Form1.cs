@@ -37,6 +37,9 @@ namespace OOPSnamkes
             this.BackgroundImage = BoardBackground;
 
             this.Controls.Add(boardDisplay);
+
+
+            RefreshBoard(1);
             //game.PlayGame();
         }
 
@@ -79,17 +82,21 @@ namespace OOPSnamkes
             SetUpPictureBox(boardDisplay);
         }
 
-        private void Refresh(List<Square> squares)
+        private void RefreshBoard(int square)
         {
-            foreach (Square i in squares)
+            PictureBox boardDisplay = (PictureBox)this.Controls.Find("boardDisplay", false)[0];
+            Bitmap temp = BoardBackgroundSized;
+            int xCoord;
+            int yCoord;
+
+            if (null == boardDisplay.Image)
             {
-                if(0 < i.Occupier.Count)
-                {
-                    if(1 == i.Occupier.Count)
-                    {
-                        
-                    }
-                }
+                boardDisplay.Image.Dispose();
+            }
+
+            using (Graphics g = Graphics.FromImage(temp))
+            {
+                yCoord = (10 -((square - 1) / 10)) * temp.Height;
             }
         }
     }
