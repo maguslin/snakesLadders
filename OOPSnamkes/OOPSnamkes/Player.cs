@@ -14,6 +14,14 @@ namespace OOPSnamkes
         private Shaker shaker;
         private Square currentSquare;
         
+        public string Name
+        {
+            get{return this.name;}
+        }
+        public string Colour
+        {
+            get{return this.colour;}
+        }
 
         public Player()
         {
