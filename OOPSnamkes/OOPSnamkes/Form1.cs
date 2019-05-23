@@ -14,43 +14,33 @@ namespace OOPSnamkes
     {
 
         Game game = new Game();
+        Bitmap BoardBackground;
+
+
+
         public Form1()
         {
             InitializeComponent();
         }
 
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            Bitmap background = DrawBoard();
+            PictureBox boardDisplay = new PictureBox();
 
-            PictureBox gameBoardDisplay = new PictureBox();
-            gameBoardDisplay.Height = this.Height;
-            gameBoardDisplay.Width = this.Width * (2 / 3);
-            gameBoardDisplay.Location = new Point(0, 0);
-            gameBoardDisplay.Image = background;
+            BoardBackground = SetUpBoard();
 
-            TextBox txtbx = new TextBox();
-            txtbx.Text = "";
-            txtbx.Name = "txtbx1";
-            txtbx.Location = new Point(10, 10);
-            txtbx.Height = 20;
-            txtbx.Width = 50;
-            Controls.Add(txtbx);
+            SetUpPictureBox(boardDisplay);
+            boardDisplay.Name = "boardDisplay";
 
-            this.Text = "help";
+            this.BackgroundImage = BoardBackground;
 
-            this.Controls.Add(gameBoardDisplay);
-            
-
-
-
-
-
-            game.PlayGame();
+            this.Controls.Add(boardDisplay);
+            //game.PlayGame();
         }
 
 
-        private Bitmap DrawBoard()
+        private Bitmap SetUpBoard()
         {
             Bitmap board = new Bitmap(Properties.Resources.snlboard001, Properties.Resources.snlboard001.Height, Properties.Resources.snlboard001.Width);
             using(Graphics g = Graphics.FromImage(board))
@@ -59,6 +49,32 @@ namespace OOPSnamkes
             }
 
             return board;
+        }
+
+        private Bitmap DrawBoard(int Width, int Height)
+        {
+            Bitmap temporay = new Bitmap(Width, Height);
+
+            using(Graphics g = Graphics.FromImage(temporay))
+            {
+                g.DrawImage(BoardBackground, new Point[] { new Point(0, 0), new Point(Width, 0), new Point(0, Height) });
+            }
+
+            return temporay;
+        }
+
+        private void SetUpPictureBox(PictureBox BoardDisplay)
+        {
+            BoardDisplay.Height = this.ClientRectangle.Height;
+            BoardDisplay.Width = (int)((this.ClientRectangle.Width) * (double)9 / (double)12);
+            BoardDisplay.Image = DrawBoard(BoardDisplay.Width, BoardDisplay.Height);
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            PictureBox boardDisplay = (PictureBox)this.Controls.Find("boardDisplay",false)[0];
+            boardDisplay.Image.Dispose();
+            SetUpPictureBox(boardDisplay);
         }
     }
 }
