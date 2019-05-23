@@ -38,8 +38,10 @@ namespace OOPSnamkes
 
             this.Controls.Add(boardDisplay);
 
+            this.Click += Form1_Click;
 
-            RefreshBoard(1);
+            RefreshBoard(40);
+
             //game.PlayGame();
         }
 
@@ -72,7 +74,7 @@ namespace OOPSnamkes
             BoardDisplay.Height = this.ClientRectangle.Height;
             BoardDisplay.Width = (int)((this.ClientRectangle.Width) * (double)9 / (double)12);
             BoardBackgroundSized = DrawBoard(BoardDisplay.Width, BoardDisplay.Height);
-            BoardDisplay.Image = BoardBackgroundSized;
+            BoardDisplay.Image = (Bitmap)BoardBackgroundSized.Clone();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -82,22 +84,43 @@ namespace OOPSnamkes
             SetUpPictureBox(boardDisplay);
         }
 
+        private void Form1_Click(object sender, EventArgs e)
+        {
+            for(int i = 1; i <= 100; i++)
+            {
+                RefreshBoard(i);
+                
+            }
+        }
+
         private void RefreshBoard(int square)
         {
             PictureBox boardDisplay = (PictureBox)this.Controls.Find("boardDisplay", false)[0];
-            Bitmap temp = BoardBackgroundSized;
+            Bitmap temp = (Bitmap)BoardBackgroundSized.Clone();
             int xCoord;
             int yCoord;
 
-            if (null == boardDisplay.Image)
+            if (null != boardDisplay.Image)
             {
-                boardDisplay.Image.Dispose();
+              boardDisplay.Image.Dispose();
             }
 
             using (Graphics g = Graphics.FromImage(temp))
             {
-                yCoord = (10 -((square - 1) / 10)) * temp.Height;
+                yCoord = (10 -((square - 1) / 10) - 1) * (temp.Height/10);
+                if(((square -1)/10) % 2 == 1)
+                {
+                    xCoord = (9 -((square -1)%10)) * (boardDisplay.Width/10);
+                }
+                else
+                {
+                    xCoord = ((square -1)%10) * (boardDisplay.Width/10);
+                }
+
+                g.DrawImage(Properties.Resources.blueCounter, new Point[] {new Point(xCoord, yCoord), new Point(xCoord +boardDisplay.Width/10, yCoord), new Point(xCoord, yCoord + boardDisplay.Height / 10)});
             }
+
+            boardDisplay.Image = temp;
         }
     }
 }
