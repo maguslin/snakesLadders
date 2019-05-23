@@ -37,6 +37,14 @@ namespace OOPSnamkes
             }
         }
 
+        public List<Player> Occupier
+        {
+            get
+            {
+                return occupier;
+            }
+        }
+
         public Square()
         {
             occupier = new List<Player>();

@@ -19,7 +19,7 @@ namespace OOPSnamkes  //MLO
         }
 
         public void CreatePlayerQueue(List<Player> newplayers)
-        {   
+        {
             foreach (var person in newplayers)
             {
                 this.players.Enqueue(person);
@@ -49,20 +49,20 @@ namespace OOPSnamkes  //MLO
 
         public void PlayGame()
         {
-            
+
             CreateBoard();
             GetPlayers();
 
-                Player currentPlayer = new Player();
+            Player currentPlayer = new Player();
 
-                    do
-                    {
-                        currentPlayer = players.Dequeue();
-                        currentPlayer.TakeTurn(gameboard);
-                        players.Enqueue(currentPlayer);
+            do
+            {
+                currentPlayer = players.Dequeue();
+                currentPlayer.TakeTurn(gameboard);
+                players.Enqueue(currentPlayer);
 
-                    } while (currentPlayer.winner == false);
-      
+            } while (currentPlayer.winner == false);
+
         }
 
     }

@@ -76,5 +76,16 @@ namespace OOPSnamkes
             boardDisplay.Image.Dispose();
             SetUpPictureBox(boardDisplay);
         }
+
+        private void Refresh(List<Square> squares)
+        {
+            foreach (Square i in squares)
+            {
+                if(0 < i.Occupier.Count)
+                {
+                    //do stuff to work out how many players are there and then display their counters in the correct square.
+                }
+            }
+        }
     }
 }
