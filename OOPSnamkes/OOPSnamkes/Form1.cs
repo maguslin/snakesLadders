@@ -57,14 +57,14 @@ namespace OOPSnamkes
             this.BackgroundImage = BoardBackground;
 
             PictureBox ShowDie = new PictureBox();
-            ShowDie.Height = (int)(this.ClientRectangle.Height * (double)8/(double)12);
+            ShowDie.Height = (int)(this.ClientRectangle.Height * (double)8 / (double)12);
             ShowDie.Width = this.ClientRectangle.Width - boardDisplay.Width;
             ShowDie.Location = new Point(boardDisplay.Width, (int)(this.ClientRectangle.Height * (double)2 / (double)12));
             ShowDie.Name = "ShowDie";
             ShowDie.BackColor = Color.Red;
 
             Button DoStuff = new Button();
-            DoStuff.Height = (int)(this.ClientRectangle.Height * (double)2/(double)12);
+            DoStuff.Height = (int)(this.ClientRectangle.Height * (double)2 / (double)12);
             DoStuff.Width = ShowDie.Width;
             DoStuff.Location = new Point(ShowDie.Location.X, ShowDie.Height + DoStuff.Height);
             DoStuff.Click += Button_Click;
@@ -167,7 +167,6 @@ namespace OOPSnamkes
 
             foreach (Square i in Squares)
             {
-
                 if (0 < i.Occupier.Count)
                 {
 
@@ -180,8 +179,6 @@ namespace OOPSnamkes
                     {
                         xCoord = ((i.Number - 1) % 10) * (boardDisplay.Width / 10);
                     }
-
-
                     using (Graphics g = Graphics.FromImage(temp))
                     {
                         if (1 == i.Occupier.Count)
@@ -189,8 +186,24 @@ namespace OOPSnamkes
 
                             g.DrawImage(Counters[i.Occupier[0].Colour], new Point[] { new Point(xCoord, yCoord), new Point(xCoord + boardDisplay.Width / 10, yCoord), new Point(xCoord, yCoord + boardDisplay.Height / 10) });
                         }
+                        else if (2 == i.Occupier.Count)
+                        {
+
+                            for (int x = 0; x < i.Occupier.Count; x++)
+                            {
+                                g.DrawImage(Counters[i.Occupier[x].Colour], new Point[] { new Point(xCoord + ((boardDisplay.Width / 10) / 2) * (x % 2), yCoord), new Point((xCoord + ((boardDisplay.Width / 10) / 2) * (x % 2)) + (boardDisplay.Width / 10 / 2), yCoord), new Point(xCoord + ((boardDisplay.Width / 10) / 2) * (x % 2), yCoord + boardDisplay.Height / 10) });
+                            }
+                        }else
+                        {
+                            for (int x = 0; x < i.Occupier.Count; x++)
+                            {
+                                g.DrawImage(Counters[i.Occupier[x].Colour], new Point[] { new Point(xCoord + ((boardDisplay.Width / 10) / 2) * (x % 2), yCoord + (boardDisplay.Height/10/2) * (x/2)), new Point((xCoord + ((boardDisplay.Width / 10) / 2) * (x % 2)) + (boardDisplay.Width / 10 / 2), yCoord + (boardDisplay.Height / 10 / 2) * (x / 2)), new Point(xCoord + ((boardDisplay.Width / 10) / 2) * (x % 2), yCoord + (boardDisplay.Height / 10 / 2) * (x / 2) + boardDisplay.Height / 10/2) });
+                            }
+                        }
                     }
+
                 }
+
 
             }
 
@@ -202,14 +215,14 @@ namespace OOPSnamkes
         {
             PictureBox ShowDie = (PictureBox)this.Controls.Find("ShowDie", false)[0];
             Bitmap bmp = new Bitmap(ShowDie.Width, ShowDie.Height);
-            if(null != ShowDie.Image)
+            if (null != ShowDie.Image)
             {
                 ShowDie.Image.Dispose();
             }
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.DrawImage(DiePics[die1 -1], new Point[] { new Point(0, 0), new Point(ShowDie.Width / 2, 0), new Point(0, ShowDie.Height / 2) });
-                g.DrawImage(DiePics[die2 - 1], new Point[] { new Point(ShowDie.Width / 2, 0), new Point(ShowDie.Width, 0), new Point(ShowDie.Width/2, ShowDie.Height / 2) });
+                g.DrawImage(DiePics[die1 - 1], new Point[] { new Point(0, 0), new Point(ShowDie.Width / 2, 0), new Point(0, ShowDie.Height / 2) });
+                g.DrawImage(DiePics[die2 - 1], new Point[] { new Point(ShowDie.Width / 2, 0), new Point(ShowDie.Width, 0), new Point(ShowDie.Width / 2, ShowDie.Height / 2) });
             }
             ShowDie.Image = bmp;
         }

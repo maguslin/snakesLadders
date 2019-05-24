@@ -66,7 +66,7 @@ namespace OOPSnamkes  //MLO
 
             if (currentPlayer.winner)
             {
-                //do something spectacular
+                MessageBox.Show("And The Winner is " + currentPlayer.Name);
             }
         }
 

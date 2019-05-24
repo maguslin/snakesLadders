@@ -121,7 +121,8 @@ namespace OOPSnamkes
         public override void SetTransition(int num)
         {
             this.transition = num;
-            
+            this.type = 'L';
+
         }
     }
 
