@@ -10,8 +10,8 @@ namespace OOPSnamkes
     {
         private int totalRoll = 0;
 
-        Dice roll1;
-        Dice roll2;
+        public Dice roll1;
+        public Dice roll2;
 
         public int GetTotal()
         {
@@ -49,7 +49,7 @@ namespace OOPSnamkes
         }
     }
 
-    class Dice
+    public class Dice
     {
         private int faceValue;
         private int min = 1;

@@ -13,6 +13,9 @@ namespace OOPSnamkes
         public bool winner;        
         private Shaker shaker;
         private Square currentSquare;
+
+        public int Die1 { get { return shaker.roll1.FaceValues; } }
+        public int Die2 { get { return shaker.roll2.FaceValues; } }
         
         public string Name
         {

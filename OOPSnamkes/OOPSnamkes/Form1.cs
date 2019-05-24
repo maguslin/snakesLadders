@@ -17,7 +17,8 @@ namespace OOPSnamkes
         Bitmap BoardBackground;
         Bitmap BoardBackgroundSized;
         Dictionary<string, Bitmap> Counters;
-        bool GameStarted;
+        Bitmap[] DiePics;
+        bool Gameplay;
 
 
 
@@ -29,7 +30,7 @@ namespace OOPSnamkes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GameStarted = false;
+            Gameplay = true;
 
             PictureBox boardDisplay = new PictureBox();
             game = new Game(this);
@@ -45,23 +46,41 @@ namespace OOPSnamkes
             Counters.Add("Yellow", Properties.Resources.yellowCounter);
             Counters.Add("Green", Properties.Resources.greenCounter);
 
+            DiePics = new Bitmap[6];
+            DiePics[0] = Properties.Resources.die1;
+            DiePics[1] = Properties.Resources.die2;
+            DiePics[2] = Properties.Resources.die3;
+            DiePics[3] = Properties.Resources.die4;
+            DiePics[4] = Properties.Resources.die5;
+            DiePics[5] = Properties.Resources.die6;
+
             this.BackgroundImage = BoardBackground;
 
             PictureBox ShowDie = new PictureBox();
-            ShowDie.Height = (int)(this.ClientRectangle.Height * (double)10/(double)12);
+            ShowDie.Height = (int)(this.ClientRectangle.Height * (double)8/(double)12);
             ShowDie.Width = this.ClientRectangle.Width - boardDisplay.Width;
-            ShowDie.Location = new Point(boardDisplay.Width, 0);
+            ShowDie.Location = new Point(boardDisplay.Width, (int)(this.ClientRectangle.Height * (double)2 / (double)12));
             ShowDie.Name = "ShowDie";
             ShowDie.BackColor = Color.Red;
 
             Button DoStuff = new Button();
-            DoStuff.Height = this.ClientRectangle.Height - ShowDie.Height;
+            DoStuff.Height = (int)(this.ClientRectangle.Height * (double)2/(double)12);
             DoStuff.Width = ShowDie.Width;
-            DoStuff.Location = new Point(ShowDie.Location.X, ShowDie.Height);
+            DoStuff.Location = new Point(ShowDie.Location.X, ShowDie.Height + DoStuff.Height);
             DoStuff.Click += Button_Click;
             DoStuff.Text = "Click For Magic";
             DoStuff.Name = "DoStuff";
 
+            Label lblPlayer = new Label();
+            lblPlayer.Text = "No Player right now";
+            lblPlayer.Height = DoStuff.Height;
+            lblPlayer.Width = DoStuff.Width;
+            lblPlayer.Location = new Point(DoStuff.Location.X, 0);
+            lblPlayer.Name = "lblPlayer";
+            lblPlayer.Font = new Font(FontFamily.GenericMonospace, 20.0f, FontStyle.Italic | FontStyle.Bold | FontStyle.Strikeout);
+            lblPlayer.TextAlign = ContentAlignment.MiddleCenter;
+
+            this.Controls.Add(lblPlayer);
             this.Controls.Add(ShowDie);
             this.Controls.Add(DoStuff);
             this.Controls.Add(boardDisplay);
@@ -110,13 +129,17 @@ namespace OOPSnamkes
             PictureBox boardDisplay = (PictureBox)this.Controls.Find("boardDisplay", false)[0];
             PictureBox ShowDie = (PictureBox)this.Controls.Find("ShowDie", false)[0];
             Button DoStuff = (Button)this.Controls.Find("DoStuff", false)[0];
+            Label lblPlayer = (Label)this.Controls.Find("lblPlayer", false)[0];
             SetUpPictureBox(boardDisplay);
-            ShowDie.Height = (int)(this.ClientRectangle.Height * (double)10 / (double)12);
+            ShowDie.Height = (int)(this.ClientRectangle.Height * (double)8 / (double)12);
             ShowDie.Width = this.ClientRectangle.Width - boardDisplay.Width;
-            ShowDie.Location = new Point(boardDisplay.Width, 0);
-            DoStuff.Height = this.ClientRectangle.Height - ShowDie.Height;
+            ShowDie.Location = new Point(boardDisplay.Width, (int)(this.ClientRectangle.Height * (double)2 / (double)12));
+            DoStuff.Height = (int)(this.ClientRectangle.Height * (double)2 / (double)12);
             DoStuff.Width = ShowDie.Width;
-            DoStuff.Location = new Point(ShowDie.Location.X, ShowDie.Height);
+            DoStuff.Location = new Point(ShowDie.Location.X, ShowDie.Height + DoStuff.Height);
+            lblPlayer.Height = DoStuff.Height;
+            lblPlayer.Width = DoStuff.Width;
+            lblPlayer.Location = new Point(DoStuff.Location.X, 0);
 
         }
 
@@ -175,7 +198,7 @@ namespace OOPSnamkes
             boardDisplay.Image = temp;
         }
 
-        private void UpdateDie()
+        public void DrawDie(int die1, int die2)
         {
 
         }

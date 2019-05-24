@@ -57,15 +57,17 @@ namespace OOPSnamkes  //MLO
 
             Player currentPlayer = new Player();
 
-                currentPlayer = players.Dequeue();
-                currentPlayer.TakeTurn(gameboard);
-                players.Enqueue(currentPlayer);
-                Parent.DrawCounters(gameboard.Squares);
+            currentPlayer = players.Dequeue();
+            currentPlayer.TakeTurn(gameboard);
+            players.Enqueue(currentPlayer);
+            Parent.DrawDie(currentPlayer.Die1, currentPlayer.Die2);
+            Parent.DrawCounters(gameboard.Squares);
             Parent.DrawCounters(gameboard.Squares);
 
-            if(currentPlayer.winner){
+            if (currentPlayer.winner)
+            {
                 //do something spectacular
-}
+            }
         }
 
     }
