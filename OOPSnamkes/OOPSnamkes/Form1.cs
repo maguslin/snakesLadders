@@ -200,6 +200,16 @@ namespace OOPSnamkes
 
         public void DrawDie(int die1, int die2)
         {
+            PictureBox ShowDie = (PictureBox)this.Controls.Find("ShowDie", false)[0];
+            Bitmap bmp = new Bitmap(ShowDie.Width, ShowDie.Height);
+            if(null != ShowDie.Image)
+            {
+                ShowDie.Image.Dispose();
+            }
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.DrawImage(DiePics[die1], new Point[] { new Point(0, 0), new Point(ShowDie.Width / 2, 0), new Point(ShowDie.Height / 2) });
+            }
 
         }
     }
