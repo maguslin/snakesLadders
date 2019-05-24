@@ -64,7 +64,7 @@ namespace OOPSnamkes
         }
         public Dice()
         {
-            Random rnd = new Random();
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
             faceValue = rnd.Next(min, max + 1);
         }
     }
