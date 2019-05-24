@@ -208,9 +208,10 @@ namespace OOPSnamkes
             }
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.DrawImage(DiePics[die1], new Point[] { new Point(0, 0), new Point(ShowDie.Width / 2, 0), new Point(ShowDie.Height / 2) });
+                g.DrawImage(DiePics[die1 -1], new Point[] { new Point(0, 0), new Point(ShowDie.Width / 2, 0), new Point(0, ShowDie.Height / 2) });
+                g.DrawImage(DiePics[die2 - 1], new Point[] { new Point(ShowDie.Width / 2, 0), new Point(ShowDie.Width, 0), new Point(ShowDie.Width/2, ShowDie.Height / 2) });
             }
-
+            ShowDie.Image = bmp;
         }
     }
 }
